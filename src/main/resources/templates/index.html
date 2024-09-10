@@ -14,5 +14,28 @@
         <li th:text="${student.getId()} + ' ' + ${student.getName()} + ' ' + ${student.getEmail()}"></li>
     </th:block>
 </ul>
+
+
+<h2>Prepod List</h2>
+<form action="/prepod/create" method="get">
+    <button type="submit">Add New Student</button>
+</form>
+<ul>
+    <th:block th:each="prepod : ${prepods}">
+        <li th:text="${prepod.getId()} + ' ' + ${prepod.getName()} + ' ' + ${prepod.getEmail()}"></li>
+    </th:block>
+</ul>
+
+
+<h2>Applicant List</h2>
+<form action="/applicant/create" method="get">
+    <button type="submit">Add New Student</button>
+</form>
+<ul>
+    <th:block th:each="applicant : ${applicants}">
+        <li th:text="${applicant.getId()} + ' ' + ${applicant.getName()} + ' ' + ${applicant.getEmail()}"></li>
+    </th:block>
+</ul>
 </body>
+
 </html>
