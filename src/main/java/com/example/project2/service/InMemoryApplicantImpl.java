@@ -40,4 +40,9 @@ public class InMemoryApplicantImpl implements ApplicantService {
     public void deleteApplicant(UUID id) {
         ApplicantRepository.deleteApplicant(id);
     }
+
+    @Override
+    public List<ApplicantModel> findApplicantByName(String name) {
+        return ApplicantRepository.findApplicantByName(name);
+    }
 }

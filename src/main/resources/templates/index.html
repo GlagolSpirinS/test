@@ -1,41 +1,82 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Students List</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .tab {
+            display: none;
+        }
+        .tab-button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.getElementById(tabId).style.display = 'block';
+        }
+    </script>
 </head>
 <body>
-<h2>Student List</h2>
-<form action="/student/create" method="get">
-    <button type="submit">Add New Student</button>
-</form>
-<ul>
-    <th:block th:each="student : ${students}">
-        <li th:text="${student.getId()} + ' ' + ${student.getName()} + ' ' + ${student.getEmail()}"></li>
-    </th:block>
-</ul>
+<h2>Dashboard</h2>
 
+<!-- Navigation buttons -->
+<div>
+    <button class="tab-button" onclick="showTab('students')">Students</button>
+    <button class="tab-button" onclick="showTab('prepods')">Prepods</button>
+    <button class="tab-button" onclick="showTab('applicants')">Applicants</button>
+</div>
 
-<h2>Prepod List</h2>
-<form action="/prepod/create" method="get">
-    <button type="submit">Add New Student</button>
-</form>
-<ul>
-    <th:block th:each="prepod : ${prepods}">
-        <li th:text="${prepod.getId()} + ' ' + ${prepod.getName()} + ' ' + ${prepod.getEmail()}"></li>
-    </th:block>
-</ul>
+<!-- Students Tab -->
+<div id="students" class="tab">
+    <h2>Student List</h2>
+    <form action="/student/create" method="get">
+        <button type="submit">Add New Student</button>
+    </form>
+    <ul>
+        <th:block th:each="student : ${students}">
+            <li th:text="${student.getId()} + ' ' + ${student.getName()} + ' ' + ${student.getEmail()}"></li>
+        </th:block>
+    </ul>
+</div>
 
+<!-- Prepods Tab -->
+<div id="prepods" class="tab">
+    <h2>Prepod List</h2>
+    <form action="/prepod/create" method="get">
+        <button type="submit">Add New Prepod</button>
+    </form>
+    <ul>
+        <th:block th:each="prepod : ${prepods}">
+            <li th:text="${prepod.getId()} + ' ' + ${prepod.getName()} + ' ' + ${prepod.getEmail()}"></li>
+        </th:block>
+    </ul>
+</div>
 
-<h2>Applicant List</h2>
-<form action="/applicant/create" method="get">
-    <button type="submit">Add New Student</button>
-</form>
-<ul>
-    <th:block th:each="applicant : ${applicants}">
-        <li th:text="${applicant.getId()} + ' ' + ${applicant.getName()} + ' ' + ${applicant.getEmail()}"></li>
-    </th:block>
-</ul>
+<!-- Applicants Tab -->
+<div id="applicants" class="tab">
+    <h2>Applicant List</h2>
+    <form action="/applicant/create" method="get">
+        <button type="submit">Add New Applicant</button>
+    </form>
+    <form action="/applicant/search" method="get">
+        <input type="text" name="name" placeholder="Search by name" required>
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        <th:block th:each="applicant : ${applicants}">
+            <li th:text="${applicant.getId()} + ' ' + ${applicant.getName()} + ' ' + ${applicant.getEmail()}"></li>
+        </th:block>
+    </ul>
+</div>
+
+<script>
+    // Show the first tab by default
+    showTab('students');
+</script>
 </body>
-
 </html>

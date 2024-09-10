@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 
 @Repository
 public class ApplicantRepository {
@@ -24,6 +24,12 @@ public class ApplicantRepository {
                 .orElse(null);
     }
 
+    public List<ApplicantModel> findApplicantByName(String name) {
+        return ApplicantS.stream()
+                .filter(element -> element.getName().equalsIgnoreCase(name))
+                .collect(Collectors.toList());
+    }
+
     public ApplicantModel createApplicant(ApplicantModel Applicant){
         ApplicantS.add(Applicant);
         return Applicant;
@@ -31,19 +37,19 @@ public class ApplicantRepository {
 
     public ApplicantModel updateApplicant(ApplicantModel Applicant){
         var ApplicantIndex = IntStream.range(0, ApplicantS.size())
-                .filter(index-> ApplicantS.get(index).getEmail().equals(Applicant.getEmail()))
+                .filter(index -> ApplicantS.get(index).getEmail().equals(Applicant.getEmail()))
                 .findFirst()
                 .orElse(-1);
-        if(ApplicantIndex == -1){
+        if (ApplicantIndex == -1) {
             return null;
         }
         ApplicantS.set(ApplicantIndex, Applicant);
         return Applicant;
     }
 
-    public void deleteApplicant (UUID  id){
+    public void deleteApplicant(UUID id) {
         var Applicant = findApplicantById(id);
-        if(Applicant != null){
+        if (Applicant != null) {
             ApplicantS.remove(Applicant);
         }
     }

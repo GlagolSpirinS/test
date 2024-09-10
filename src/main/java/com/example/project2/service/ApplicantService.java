@@ -11,4 +11,5 @@ public interface ApplicantService {
     ApplicantModel updateApplicant(ApplicantModel Applicant);
     ApplicantModel findApplicantById(UUID id);
     void deleteApplicant(UUID id);
+    List<ApplicantModel> findApplicantByName(String name);
 }
