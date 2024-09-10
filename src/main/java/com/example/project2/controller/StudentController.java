@@ -14,32 +14,31 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    public StudentController(InMemoryStudentImpl studentService) {
+    @Autowired
+    public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
     @GetMapping
     public String getStudentAll(Model model){
         var students = studentService.findAllStudent();
-        model.addAttribute("students",students);
+        model.addAttribute("students", students);
         return "index";
     }
 
     @GetMapping("/create")
-    public String getCreateStudent(){
-        return  "createStudent";
+    public String getCreateStudent() {
+        return "createStudent";
     }
 
     @PostMapping("/create")
     public String postCreateStudent(
-            @RequestParam(name="name")
-            String name,
-            @RequestParam(name="email")
-            String email,
-            @RequestParam(name="password")
-            String password
-    ){
-        studentService.createStudent(new StudentModel(name,email,password));
+            @RequestParam(name="name") String name,
+            @RequestParam(name="email") String email,
+            @RequestParam(name="password") String password
+    ) {
+        studentService.createStudent(new StudentModel(name, email, password));
         return "redirect:/student";
     }
 }
+

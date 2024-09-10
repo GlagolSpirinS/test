@@ -17,8 +17,11 @@ public class StudentRepository {
         return STUDENTS;
     }
 
-    public  StudentModel findStudentById(UUID id){
-       return STUDENTS.stream().filter(element -> element.getId() == id).findFirst().orElse(null);
+    public StudentModel findStudentById(UUID id) {
+        return STUDENTS.stream()
+                .filter(element -> element.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
     public StudentModel createStudent(StudentModel student){
