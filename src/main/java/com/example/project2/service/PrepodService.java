@@ -1,5 +1,6 @@
 package com.example.project2.service;
 
+import com.example.project2.model.ApplicantModel;
 import com.example.project2.model.PrepodModel;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface PrepodService {
     PrepodModel updatePrepod(PrepodModel Prepod);
     PrepodModel findPrepodById(UUID id);
     void deletePrepod(UUID id);
+    List<PrepodModel> findPrepodByName(String name);
 }

@@ -9,36 +9,41 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/prepod")
 public class PrepodController {
 
-    private final PrepodService PrepodService;
+    private final PrepodService prepodService;
 
     @Autowired
-    public PrepodController(PrepodService PrepodService) {
-        this.PrepodService = PrepodService;
+    public PrepodController(PrepodService prepodService) {
+        this.prepodService = prepodService;
     }
 
-    @GetMapping
+    @GetMapping("/prepod")
     public String getPrepodAll(Model model){
-        var prepods = PrepodService.findAllPrepod();
+        var prepods = prepodService.findAllPrepod();
         model.addAttribute("prepods", prepods);
         return "index";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/prepod/search")
+    public String searchPrepod(@RequestParam(name="name") String name, Model model) {
+        var prepods = prepodService.findPrepodByName(name);
+        model.addAttribute("prepods", prepods);
+        return "index";
+    }
+
+    @GetMapping("/prepod/create")
     public String getCreatePrepod() {
         return "createPrepod";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/prepod/create")
     public String postCreatePrepod(
             @RequestParam(name="name") String name,
             @RequestParam(name="email") String email,
             @RequestParam(name="password") String password
     ) {
-        PrepodService.createPrepod(new PrepodModel(name, email, password));
+        prepodService.createPrepod(new PrepodModel(name, email, password));
         return "redirect:/prepod";
     }
 }
-

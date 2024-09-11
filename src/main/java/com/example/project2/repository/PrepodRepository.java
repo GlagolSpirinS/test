@@ -1,11 +1,13 @@
 package com.example.project2.repository;
 
+import com.example.project2.model.ApplicantModel;
 import com.example.project2.model.PrepodModel;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
@@ -22,6 +24,12 @@ public class PrepodRepository {
                 .filter(element -> element.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<PrepodModel> findPrepodByName (String name) {
+        return PrepodS.stream()
+                .filter(element -> element.getName().equalsIgnoreCase(name))
+                .collect(Collectors.toList());
     }
 
     public PrepodModel createPrepod(PrepodModel Prepod){

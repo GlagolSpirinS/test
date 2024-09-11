@@ -1,5 +1,6 @@
 package com.example.project2.service;
 
+import com.example.project2.model.ApplicantModel;
 import com.example.project2.model.PrepodModel;
 import com.example.project2.repository.PrepodRepository;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,10 @@ public class InMemoryPrepodImpl implements PrepodService {
     @Override
     public void deletePrepod(UUID id) {
         PrepodRepository.deletePrepod(id);
+    }
+
+    @Override
+    public List<PrepodModel> findPrepodByName(String name) {
+        return PrepodRepository.findPrepodByName(name);
     }
 }

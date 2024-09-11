@@ -8,42 +8,41 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/applicant")
 public class ApplicantController {
 
-    private final ApplicantService ApplicantService;
+    private final ApplicantService applicantService;
 
     @Autowired
     public ApplicantController(ApplicantService applicantService) {
-        this.ApplicantService = applicantService;
+        this.applicantService = applicantService;
     }
 
-    @GetMapping
-    public String getapplicantAll(Model model){
-        var applicants = ApplicantService.findAllApplicant();
+    @GetMapping("/applicant")
+    public String getAllApplicants(Model model){
+        var applicants = applicantService.findAllApplicant();
         model.addAttribute("applicants", applicants);
         return "index";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/applicant/search")
     public String searchApplicant(@RequestParam(name="name") String name, Model model) {
-        var applicants = ApplicantService.findApplicantByName(name);
+        var applicants = applicantService.findApplicantByName(name);
         model.addAttribute("applicants", applicants);
         return "index";
     }
 
-    @GetMapping("/create")
-    public String getCreateapplicant() {
+    @GetMapping("/applicant/create")
+    public String getCreateApplicant() {
         return "createapplicant";
     }
 
-    @PostMapping("/create")
-    public String postCreateapplicant(
+    @PostMapping("/applicant/create")
+    public String postCreateApplicant(
             @RequestParam(name="name") String name,
             @RequestParam(name="email") String email,
             @RequestParam(name="password") String password
     ) {
-        ApplicantService.createApplicant(new ApplicantModel(name, email, password));
+        applicantService.createApplicant(new ApplicantModel(name, email, password));
         return "redirect:/applicant";
     }
 }
